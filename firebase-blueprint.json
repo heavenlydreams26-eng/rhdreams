@@ -1,0 +1,106 @@
+{
+  "entities": {
+    "Agent": {
+      "title": "Agent",
+      "description": "An AI agent for specific recruitment tasks.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "status": { "type": "string", "enum": ["Active", "Draft"] },
+        "description": { "type": "string" },
+        "channels": { "type": "array", "items": { "type": "string" } },
+        "memory": { "type": "string" },
+        "conversations": { "type": "number" },
+        "successRate": { "type": "string" },
+        "avatarColor": { "type": "string" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "number" },
+        "basePrompt": { "type": "string" }
+      },
+      "required": ["name", "role", "status", "userId", "createdAt"]
+    },
+    "Candidate": {
+      "title": "Candidate",
+      "description": "A job candidate in the recruitment pipeline.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "stage": { "type": "string" },
+        "source": { "type": "string" },
+        "location": { "type": "string" },
+        "experienceTime": { "type": "string" },
+        "rating": { "type": "number" },
+        "age": { "type": "number" },
+        "lastJob": { "type": "string" },
+        "linkedin": { "type": "string" },
+        "whatsapp": { "type": "boolean" },
+        "appointment": {
+          "type": "object",
+          "properties": {
+            "date": { "type": "string" },
+            "time": { "type": "string" },
+            "status": { "type": "string" }
+          }
+        },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["name", "role", "stage", "userId", "createdAt"]
+    },
+    "Job": {
+      "title": "Job Offer",
+      "description": "A job opening or offer.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "department": { "type": "string" },
+        "location": { "type": "string" },
+        "status": { "type": "string", "enum": ["Active", "Closed", "Draft"] },
+        "applicants": { "type": "number" },
+        "platforms": { "type": "array", "items": { "type": "string" } },
+        "timeToHire": { "type": "string" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["title", "department", "location", "status", "userId", "createdAt"]
+    },
+    "AgentLog": {
+      "title": "Agent Log",
+      "description": "Activity logs for agents.",
+      "type": "object",
+      "properties": {
+        "agentId": { "type": "string" },
+        "agent": { "type": "string" },
+        "action": { "type": "string" },
+        "type": { "type": "string", "enum": ["outreach", "screening", "match", "learning"] },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["agent", "action", "type", "date", "time", "userId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "agents": {
+      "schema": { "$ref": "#/entities/Agent" },
+      "description": "Stores AI agents."
+    },
+    "candidates": {
+      "schema": { "$ref": "#/entities/Candidate" },
+      "description": "Stores recruitment candidates."
+    },
+    "jobs": {
+      "schema": { "$ref": "#/entities/Job" },
+      "description": "Stores job offers."
+    },
+    "logs": {
+      "schema": { "$ref": "#/entities/AgentLog" },
+      "description": "Stores agent activity logs."
+    }
+  }
+}
